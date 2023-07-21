@@ -1,6 +1,8 @@
 # Scaffolder
 Scaffolder is a command-line interface tool written in Golang designed to automate the mundane task of manually creating barebones for your project. It takes the neccesary directory structure defined in a *reusable* config YAML file, which is very easy to work with for both humans and parses. This project only uses YAML collections; learn more about them [here](https://yaml.org/spec/1.2.2/#21-collections)
 
+See templates for some programming languages here: [Scaffold configs](https://github.com/cemister/scaffold-configs)
+
 ## Install
 If you are not planning to contribue OR you don't need the very last releases:
 ### Linux / MacOS
