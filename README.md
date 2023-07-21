@@ -13,7 +13,7 @@ $ cd ~
 $ mkdir scaffolder
 $ cd scaffolder
 ```
-3. Download the latest release (repeat this step to update it in future, replace stable-release with tag of latest version):
+3. Download the latest release (repeat this step to update it in future, replace stable-v1 with tag of latest version):
 ```bash
 # Linux:
 $ wget -O scaffold https://github.com/cemister/scaffolder/releases/download/stable-v1/scaffolder_linux
