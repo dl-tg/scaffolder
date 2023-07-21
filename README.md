@@ -98,11 +98,11 @@ $ go build
 $ scaffold --name <project name> --yaml <config name> --git <true/false>
 ```
 
-As of Scaffolder 1.1, all your scaffolder YAML configs should be stored in scaffolder_config folder in your home directory. (~/scaffolder_configs for Unix, %USERPROFILE%/scaffolder_configs for Windows). Make sure to create it and populate it with configs you need.
+As of Scaffolder 1.1, all your scaffolder YAML configs should be stored in scaffolder-config folder in your home directory. (~/scaffolder-configs for Unix, %USERPROFILE%/scaffolder-configs for Windows). Make sure to create it and populate it with configs you need.
 
 Example:
 ```bash
-$ scaffold --name example --yaml "hello.yaml"
+$ scaffold --name example --yaml "hello"
 ```
 It will create the project folder and scaffold it, based on the provided YAML file. You can also make it automatically initialize a Git repository inside the project by setting `git` to true.
 Here's how can the YAML file look like:
