@@ -74,7 +74,7 @@ Note that `curl`  in Windows can be used if you have it installed (comes pre-ins
 
 To build from source, make sure you have installed Golang:
 
-1. Clone the repository
+1. Clone the repository (Make sure you have installed Git. Pre-installed on macOS since Mavericks (10.9) and on majority of Linux distributions)
 ```bash
 $ git clone https://github.com/cemister/scaffolde.git
 ```
