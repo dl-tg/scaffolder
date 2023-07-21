@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-	"scaffolder/helper"
+	"scaffolder/pkg/helper"
 
 	"gopkg.in/yaml.v3"
 )
