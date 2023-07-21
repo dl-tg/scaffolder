@@ -98,7 +98,7 @@ $ go build
 $ scaffold --name <project name> --yaml <config name> --git <true/false>
 ```
 
-As of Scaffolder 1.1, all your scaffolder YAML configs should be stored in scaffolder-config folder in your home directory. (~/scaffolder-configs for Unix, %USERPROFILE%/scaffolder-configs for Windows). Make sure to create it and populate it with configs you need.
+As of Scaffolder 1.1, all your scaffolder YAML configs should be stored in scaffolder-configs folder in your home directory. (~/scaffolder-configs for Unix, %USERPROFILE%/scaffolder-configs for Windows). Make sure to create it and populate it with configs you need.
 
 Example:
 ```bash
