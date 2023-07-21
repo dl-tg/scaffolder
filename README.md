@@ -95,11 +95,14 @@ $ go build
 ```
 # Use without angle brackets.
 # Also wrap the path in quotes.
-$ scaffold --name <project name> --yaml <path to yaml file> --git <true/false>
+$ scaffold --name <project name> --yaml <config name> --git <true/false>
 ```
+
+As of Scaffolder 1.1, all your scaffolder YAML configs should be stored in scaffolder_config folder in your home directory. (~/scaffolder_configs for Unix, %USERPROFILE%/scaffolder_configs for Windows). Make sure to create it and populate it with configs you need.
+
 Example:
 ```bash
-$ scaffold --name example --yaml "./hello.yaml"
+$ scaffold --name example --yaml "hello.yaml"
 ```
 It will create the project folder and scaffold it, based on the provided YAML file. You can also make it automatically initialize a Git repository inside the project by setting `git` to true.
 Here's how can the YAML file look like:
@@ -227,7 +230,7 @@ example
 Every file has it's corresponding contents.
 
 ## Contributing
-If you want to contibute to Scaffolder but don't know how, refer to the official Github guide[Contributing to projects](https://docs.github.com/en/get-started/quickstart/contributing-to-projects)
+If you want to contibute to Scaffolder but don't know how, refer to the official Github guide - [Contributing to projects](https://docs.github.com/en/get-started/quickstart/contributing-to-projects)
 
 ## License
 This project is licensed under the Apache License, Version 2.0. See the [LICENSE](LICENSE) file for details.
