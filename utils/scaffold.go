@@ -9,7 +9,33 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-// Scaffold the directory structure
+/*
+Scaffold creates a directory structure based on the provided YAML file.
+It reads the YAML file at the given 'yamlpath', unmarshals its contents,
+and creates the specified folders and files accordingly in the current directory.
+
+Parameters:
+
+  - name: The name of the project folder to be created.
+
+  - yamlpath: The path to the YAML file containing the directory structure information.
+
+Example Usage:
+
+	projectName := "my_project"
+	yamlFilePath := "/path/to/structure.yaml"
+	Scaffold(projectName, yamlFilePath)
+
+	// Result: The directory structure defined in the "structure.yaml" file will be created in the "my_project" directory.
+
+Note:
+
+  - The function assumes that the 'yamlpath' points to a valid YAML file that adheres to the expected format.
+
+  - It will create the necessary folders and subdirectories as specified in the YAML file.
+
+  - If any error occurs during the process, the function will log a fatal error message and exit the program.
+*/
 func Scaffold(name string, yamlpath string) {
 	// Read and get YAML data
 	yamlData, err := os.ReadFile(yamlpath)
