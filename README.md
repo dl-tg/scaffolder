@@ -132,6 +132,7 @@ Scaffolder 1.1.6:
 - `--remember` - new flag introduced to save the custom path to config folder with yaml files, specified in --configDir flag, avoiding the need to specify the path each time. To reset, set --configDir to "". The custom path is saved to a text file, which is located in same directory as scaffolder executable, meaning you can edit the path without running the tool itself.
 
 The config folder must be located inside your home directory:
+
 Scaffolder 1.1.5:
 
 - Name of config folder: scaffolder-configs -> .scaffolder. It is a dotfile, meaning it's hidden by default, so you should either manipulate it using a terminal or toggle visiblity of hidden folders. Please rename the folder for compatiblity with this version
