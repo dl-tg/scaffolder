@@ -23,12 +23,12 @@ $ cd ~
 $ mkdir scaffolder
 $ cd scaffolder
 ```
-3. Download the latest release (repeat this step to update it in future, replace stable-v1_1 with tag of latest version):
+3. Download the latest release (repeat this step to update it in future, replace stable-v1_1_5 with tag of latest version if i forgot to change readme):
 ```bash
 # Linux:
-$ wget -q -O scaffold https://github.com/cemister/scaffolder/releases/download/stable-v1_1/scaffolder_linux
+$ wget -q -O scaffold https://github.com/cemister/scaffolder/releases/download/stable-v1_1_5/scaffolder_linux
 # MacOS:
-$ curl -s -o scaffold https://github.com/cemister/scaffolder/releases/download/stable-v1_1/scaffolder_macos
+$ curl -s -o scaffold https://github.com/cemister/scaffolder/releases/download/stable-v1_1_5/scaffolder_macos
 ```
 
 4. Turn the file into an executable:
@@ -61,10 +61,10 @@ mkdir scaffolder
 cd scaffolder
 ```
 
-3. Download latest scaffolder windows release (repeat this step to update it, replace stable-v1 with tag of latest version):
+3. Download latest scaffolder windows release (repeat this step to update it, replace stable-v1 with tag of latest version if i forgot to update the readme):
 
 ```bash
-curl -s -o scaffold.exe https://github.com/cemister/scaffolder/releases/download/stable-v1_1/scaffolder_win.exe
+curl -s -o scaffold.exe https://github.com/cemister/scaffolder/releases/download/stable-v1_1_5/scaffolder_win.exe
 ```
 
 
