@@ -1,4 +1,4 @@
-package main
+ot getpackage main
 
 import (
 	"flag"
@@ -40,9 +40,8 @@ func main() {
 	// Check and set the path to the YAML config file
 	if configPath == "" {
 		savedPath, err := helper.GetConfigDir()
-		if err != nil {
-			helper.Fatal("Could not get config path.", false, err)
-		}
+		helper.Fatal(fmt.Sprintf("Could not get config path: %s", err), true, err)
+		
 		if savedPath == "" {
 			// Construct default paths for the YAML file based on the user's operating system
 			var unixDefaultPath string = helper.UnixPath(yaml)
@@ -76,9 +75,7 @@ func main() {
 	// Store the path in the database
 	if remember {
 		err := helper.SaveConfigDir(yamlPath)
-		if err != nil {
-			helper.Fatal("Could not store config path.", false, err)
-		}
+		helper.Fatal(fmt.Sprintf("Could not save config path: %s", err), true, err)
 	}
 	// Scaffold the directory structure using the provided project name and YAML config path
 	utils.Scaffold(name, yamlPath)
