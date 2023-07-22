@@ -4,14 +4,9 @@ import (
 	"flag"
 	"fmt"
 	"os"
-	"path/filepath"
 	"runtime"
 	"scaffolder/helper"
 	"scaffolder/utils"
-
-	"scaffolder/database"
-
-	"github.com/mitchellh/go-homedir"
 )
 
 func main() {
@@ -32,12 +27,6 @@ func main() {
 	flag.BoolVar(&remember, "remember", false, "Remember the config path")
 	flag.Parse()
 
-	home, _ := homedir.Dir()
-	dbPath := filepath.Join(home, "config.db")
-	dbErr := database.Init(dbPath)
-	if dbErr != nil {
-		helper.Fatal("Could not initialize database.", false, dbErr)
-	}
 	// If the project name or path to the YAML file was not provided, print usage and exit with code 1
 	if name == "" || yaml == "" {
 		helper.Fatal("Usage: scaffold --name <projname> --yaml <configname> --git? <boolean> --remember? <boolean> (without angle brackets, ? - optional) ", false)
@@ -50,7 +39,7 @@ func main() {
 
 	// Check and set the path to the YAML config file
 	if configPath == "" {
-		savedPath, err := database.GetConfigDir("configPath")
+		savedPath, err := helper.GetConfigDir()
 		if err != nil {
 			helper.Fatal("Could not get config path.", false, err)
 		}
@@ -86,7 +75,7 @@ func main() {
 
 	// Store the path in the database
 	if remember {
-		err := database.StoreConfigDir("configPath", yamlPath)
+		err := helper.SaveConfigDir(yamlPath)
 		if err != nil {
 			helper.Fatal("Could not store config path.", false, err)
 		}
