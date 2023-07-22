@@ -3,6 +3,11 @@ Scaffolder is a command-line interface tool written in Golang designed to automa
 
 See templates for some programming languages here: [Scaffold configs](https://github.com/cemister/scaffold-configs)
 
+## TODO
+- [ ] Change default config folder to a dotfile - `~/.scaffolder`
+- [ ] `--configdir` flag to let the user specify path to custom config folder. Fallback to default path if empty, also let user get the config from current working directory
+- [ ] Additional error handling for new features
+      
 ## Install
 If you are not planning to contribue OR you don't need the very last releases:
 ### Linux / MacOS
