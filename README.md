@@ -6,10 +6,10 @@ Scaffolder is a command-line interface tool written in Golang designed to automa
 See templates for some programming languages here: [Scaffold configs](https://github.com/cemister/scaffold-configs)
 
 ## TODO
-- [ ] Change default config folder to a dotfile - `~/.scaffolder`
-- [ ] `--configdir` flag to let the user specify path to custom config folder. Fallback to default path if empty, also let user get the config from current working directory
+- [x] Change default config folder to a dotfile - `~/.scaffolder`
+- [x] `--configdir` flag to let the user specify path to custom config folder. Fallback to default path if empty, also let user get the config from current working directory
 - [ ] Remember custom config directory if specified AND `--remember` is true (by default false)
-- [ ] Additional error handling for new features
+- [x] Additional error handling for new features
       
 ## Install
 If you are not planning to contribue OR you don't need the very last releases:
@@ -103,10 +103,18 @@ $ go build
 ```
 # Use without angle brackets.
 # Also wrap the path in quotes.
-$ scaffold --name <project name> --yaml <config name> --git <true/false>
+# Arguments with ? are optional.
+$ scaffold --name <project name> --yaml <config name> --configdir? <path to custom folder if exists> --git? <true/false>
 ```
+The config folder must be located inside your home directory:
+Scaffolder 1.1.5:
+- Name of config folder: scaffolder-configs -> .scaffolder. It is a dotfile, meaning it's hidden by default, so you should either manipulate it using a terminal or toggle visiblity of hidden folders. Please rename the folder for compatiblity with this version
 
-As of Scaffolder 1.1, all your scaffolder YAML configs should be stored in scaffolder-configs folder in your home directory. (~/scaffolder-configs for Unix, %USERPROFILE%/scaffolder-configs for Windows). Make sure to create it and populate it with configs you need.
+- `--configdir` - new flag using which you can specify path to your custom config folder. Example below, it looks for the yaml config inside path specified in configdir which is .custom_configs folder in home directory (Unix)
+```bash
+scaffold --name test --yaml cpp --configdir "~/.custom_configs"
+```
+- If you want to get yaml in current directory, make sure it doesn't exist in .scaffolder and configdir is empty. The usage is same as normal.
 
 Example:
 ```bash
