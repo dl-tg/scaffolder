@@ -1,4 +1,4 @@
-ot getpackage main
+package main
 
 import (
 	"flag"
@@ -41,7 +41,7 @@ func main() {
 	if configPath == "" {
 		savedPath, err := helper.GetConfigDir()
 		helper.Fatal(fmt.Sprintf("Could not get config path: %s", err), true, err)
-		
+
 		if savedPath == "" {
 			// Construct default paths for the YAML file based on the user's operating system
 			var unixDefaultPath string = helper.UnixPath(yaml)
