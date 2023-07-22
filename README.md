@@ -10,7 +10,7 @@ See templates for some programming languages here: [Scaffold configs](https://gi
 
 - [x] Change default config folder to a dotfile - `~/.scaffolder`
 - [x] `--configdir` flag to let the user specify path to custom config folder. Fallback to default path if empty, also let user get the config from current working directory
-- [ ] Remember custom config directory if specified AND `--remember` is true (by default false)
+- [x] Remember custom config directory if specified AND `--remember` is true (by default false)
 - [x] Additional error handling for new features
 
 ## Install
