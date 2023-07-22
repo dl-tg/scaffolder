@@ -1,4 +1,6 @@
 # Scaffolder
+![](icon.svg)
+
 Scaffolder is a command-line interface tool written in Golang designed to automate the mundane task of manually creating barebones for your project. It takes the neccesary directory structure defined in a *reusable* config YAML file, which is very easy to work with for both humans and parsers.
 
 See templates for some programming languages here: [Scaffold configs](https://github.com/cemister/scaffold-configs)
