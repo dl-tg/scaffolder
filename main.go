@@ -32,7 +32,7 @@ func main() {
 
 	// If the project name or path to the YAML file was not provided, print usage and exit with code 1
 	if name == "" || yaml == "" {
-		helper.Fatal("Usage: scaffold --name <projname> --yaml <configname> --configdir? <custom config path> --git? <boolean> --remember? <boolean> (without angle brackets, ? - optional) ", false)
+		helper.Fatal("Usage: scaffold --name <projname> --yaml <configname> --configdir? <custom config path> --variables? <set variables> --git? <boolean> --remember? <boolean> (without angle brackets, ? - optional) ", false)
 	}
 
 	// Initialize Git repository if 'git' flag is true (user agreed)
