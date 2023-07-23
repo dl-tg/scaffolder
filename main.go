@@ -26,7 +26,7 @@ func main() {
 	flag.StringVar(&configPath, "configdir", "", "Path to custom config")
 	flag.BoolVar(&git, "git", false, "Use git in project")
 	flag.BoolVar(&remember, "remember", false, "Remember the config path")
-	flag.Var(&yamlVariables, "values", "key value pairs")
+	flag.Var(&yamlVariables, "variables", "set variables to be used as comma seperated key value pairs eg key:value,key2:value2 ")
 	flag.Parse()
 	fmt.Println(yamlVariables["age"])
 
