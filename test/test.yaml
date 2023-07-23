@@ -1,0 +1,10 @@
+src:
+  main.rs: |
+    fn main() {
+      println!("Hello, World!");
+    }
+src/tests:
+    test_module.rs:
+.:
+  Cargo.toml:
+  README.md:
