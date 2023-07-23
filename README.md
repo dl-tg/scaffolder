@@ -162,7 +162,7 @@ $ go build
 # Arguments with ? are optional.
 $ scaffold --name <project name> --yaml <config name> --configdir? <path to custom folder if exists> --git? <true/false> --remember? <true/false>
 ```
-caffolder 1.1.6:
+scaffolder 1.1.7:
 
 - `--variables` - new flag introduced to allow you set yaml varibales which can be used when scaffolding your project
 
@@ -185,6 +185,7 @@ hello:
 ```
 Result
 ```
+example
 ├── hello1
 │   ├── hello.go
 ```
