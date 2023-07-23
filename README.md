@@ -6,6 +6,41 @@ Scaffolder is a command-line interface tool written in Golang designed to automa
 
 See templates for some programming languages here: [Scaffold configs](https://github.com/cemister/scaffold-configs)
 
+Quick example:
+
+```yaml
+hello1: # Folder name
+  hello.txt: | # File name
+    Hello World # File content
+  hello1.txt: # File name (empty)
+  hello2.txt: # File name (empty)
+hello2: # Folder name
+  hello22.txt: # File name (empty)
+```
+
+```bash
+$ scaffold --name hello --yaml test
+```
+
+It's pretty much straightforward; hello1 is the folder, and hello.txt, hello1.txt, hello2.txt are the files inside it.
+The result is:
+
+```
+example
+├── hello1
+│   ├── hello.txt
+│   ├── hello1.txt
+│   └── hello2.txt
+└── hello2
+    └── hello22.txt
+```
+hello.txt:
+```
+Hello World
+```
+
+Tip: | in YAML is for multiline text
+
 ## TODO
 
 - [x] Change default config folder to a dotfile - `~/.scaffolder`
@@ -154,38 +189,8 @@ $ scaffold --name example --yaml "hello"
 ```
 
 It will create the project folder and scaffold it, based on the provided YAML file. You can also make it automatically initialize a Git repository inside the project by setting `git` to true.
-Here's how can the YAML file look like:
 
-```yaml
-hello1: # Folder name
-  hello.txt: | # File name
-    Hello World # File content
-  hello1.txt: # File name (empty)
-  hello2.txt: # File name (empty)
-hello2: # Folder name
-  hello22.txt: # File name (empty)
-```
-
-It's pretty much straightforward; hello1 is the folder, and hello.txt, hello1.txt, hello2.txt are the files inside it.
-The result is:
-
-```
-example
-├── hello1
-│   ├── hello.txt
-│   ├── hello1.txt
-│   └── hello2.txt
-└── hello2
-    └── hello22.txt
-```
-
-hello.txt:
-
-```
-Hello World
-```
-
-Note that | in YAML is used for multline text
+In addition to example above, here's a few more:
 
 To create a file inside the parent (project's) directory, we create a "." collection:
 
