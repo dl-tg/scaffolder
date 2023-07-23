@@ -18,7 +18,7 @@ func main() {
 	var remember bool
 	var yamlPath string
 	var configPath string
-	var yamlVariables yamlVariableMap = map[string]string{}
+	var yamlVariables helper.YamlVariableMap = map[string]string{}
 
 	// Define and parse command-line flags
 	flag.StringVar(&name, "name", "", "Project name")
@@ -26,7 +26,7 @@ func main() {
 	flag.StringVar(&configPath, "configdir", "", "Path to custom config")
 	flag.BoolVar(&git, "git", false, "Use git in project")
 	flag.BoolVar(&remember, "remember", false, "Remember the config path")
-	flag.Var(&yamlVariables, "variables", "set variables to be used as comma seperated key value pairs eg key:value,key2:value2 ")
+	flag.Var(&yamlVariables, "variables", "Set variables to be used as comma seperated key value pairs eg key:value,key2:value2 ")
 	flag.Parse()
 
 	// If the project name or path to the YAML file was not provided, print usage and exit with code 1

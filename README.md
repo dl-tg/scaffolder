@@ -162,6 +162,44 @@ $ go build
 # Arguments with ? are optional.
 $ scaffold --name <project name> --yaml <config name> --configdir? <path to custom folder if exists> --git? <true/false> --remember? <true/false>
 ```
+caffolder 1.1.6:
+
+- `--variables` - new flag introduced to allow you set yaml varibales which can be used when scaffolding your project
+
+Example:
+```bash
+$ scaffold --name example --yaml "hello" --variables language:go,type:compiled
+```
+```yaml
+hello:
+  main.go:|
+  package main
+  import fmt
+
+  name := "{language}"
+  type := "{type}"
+
+  func main(){
+   fmt.Println("%s is %s", name,type)
+  }
+```
+Result
+```
+├── hello1
+│   ├── hello.go
+```
+with hello.go having the content
+```
+  package main
+
+  import "fmt""
+
+  func main(){
+    name := "go"
+    type := "compiled"
+    fmt.Fprintf("%s is %s", name, type)
+  }
+```
 
 Scaffolder 1.1.6:
 
