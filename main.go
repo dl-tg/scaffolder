@@ -7,36 +7,7 @@ import (
 	"runtime"
 	"scaffolder/helper"
 	"scaffolder/utils"
-	"strings"
 )
-
-type yamlVariableMap map[string]string
-
-func (y *yamlVariableMap) String() string {
-	output := []string{}
-
-	for k, v := range *y {
-		output = append(output, fmt.Sprintf("%s:%s", k, v))
-	}
-	return strings.Join(output, ",")
-
-}
-
-func (y *yamlVariableMap) Set(val string) error {
-	values := strings.Split(val, ",")
-	for _, v := range values {
-		setVariable := strings.Split(v, ":")
-		if len(setVariable) < 2 {
-			helper.Fatal("invalid format for varibale assignment", false)
-		}
-		key := setVariable[0]
-		valu := setVariable[1]
-		(*y)[key] = valu
-
-	}
-
-	return nil
-}
 
 func main() {
 
@@ -110,5 +81,5 @@ func main() {
 		helper.Fatal(fmt.Sprintf("Could not save config path: %s", err), true, err)
 	}
 	// Scaffold the directory structure using the provided project name and YAML config path
-	utils.Scaffold(name, yamlPath,*&yamlVariables)
+	utils.Scaffold(name, yamlPath, *&yamlVariables)
 }
