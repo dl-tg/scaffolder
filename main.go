@@ -10,14 +10,15 @@ import (
 )
 
 func main() {
+
 	// Project name and YAML config filename
 	var name, yaml string
 	// Initialize Git?
 	var git bool
 	var remember bool
-
 	var yamlPath string
 	var configPath string
+	var yamlVariables helper.YamlVariableMap = map[string]string{}
 
 	// Define and parse command-line flags
 	flag.StringVar(&name, "name", "", "Project name")
@@ -25,11 +26,12 @@ func main() {
 	flag.StringVar(&configPath, "configdir", "", "Path to custom config")
 	flag.BoolVar(&git, "git", false, "Use git in project")
 	flag.BoolVar(&remember, "remember", false, "Remember the config path")
+	flag.Var(&yamlVariables, "variables", "Set variables to be used as comma seperated key value pairs eg key:value,key2:value2 ")
 	flag.Parse()
 
 	// If the project name or path to the YAML file was not provided, print usage and exit with code 1
 	if name == "" || yaml == "" {
-		helper.Fatal("Usage: scaffold --name <projname> --yaml <configname> --git? <boolean> --remember? <boolean> (without angle brackets, ? - optional) ", false)
+		helper.Fatal("Usage: scaffold --name <projname> --yaml <configname> --configdir? <custom config path> --variables? <set variables> --git? <boolean> --remember? <boolean> (without angle brackets, ? - optional) ", false)
 	}
 
 	// Initialize Git repository if 'git' flag is true (user agreed)
@@ -78,5 +80,5 @@ func main() {
 		helper.Fatal(fmt.Sprintf("Could not save config path: %s", err), true, err)
 	}
 	// Scaffold the directory structure using the provided project name and YAML config path
-	utils.Scaffold(name, yamlPath)
+	utils.Scaffold(name, yamlPath, *&yamlVariables)
 }

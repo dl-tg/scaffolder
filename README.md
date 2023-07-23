@@ -47,7 +47,7 @@ Tip: | in YAML is for multiline text
 - [x] `--configdir` flag to let the user specify path to custom config folder. Fallback to default path if empty, also let user get the config from current working directory
 - [x] Remember custom config directory if specified AND `--remember` is true (by default false)
 - [x] Additional error handling for new features
-- [ ] YAML variables that can be set using a flag. $MY_VAR: Test, a: {MY_VAR}. Parse and replace {MY_VAR} with the actual value.
+- [x] YAML variables that can be set using a flag. $MY_VAR: Test, a: {MY_VAR}. Parse and replace {MY_VAR} with the actual value.
 
 ## Install
 
@@ -161,6 +161,45 @@ $ go build
 # Also wrap the path in quotes.
 # Arguments with ? are optional.
 $ scaffold --name <project name> --yaml <config name> --configdir? <path to custom folder if exists> --git? <true/false> --remember? <true/false>
+```
+scaffolder 1.1.7:
+
+- `--variables` - new flag introduced to allow you set yaml varibales which can be used when scaffolding your project
+
+Example:
+```bash
+$ scaffold --name example --yaml "hello" --variables language:go,type:compiled
+```
+```yaml
+hello:
+  main.go: |
+  package main
+  import fmt
+
+  name := "{language}"
+  type := "{type}"
+
+  func main(){
+   fmt.Println("%s is %s", name,type)
+  }
+```
+Result
+```
+example
+├── hello1
+│   ├── hello.go
+```
+with hello.go having the content
+```
+  package main
+
+  import "fmt""
+
+  func main(){
+    name := "go"
+    type := "compiled"
+    fmt.Fprintf("%s is %s", name, type)
+  }
 ```
 
 Scaffolder 1.1.6:

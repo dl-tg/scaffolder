@@ -4,10 +4,33 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"regexp"
 	"scaffolder/helper"
 
 	"gopkg.in/yaml.v3"
 )
+
+// pattern to find all appearance of curly braces enclosed instances
+var variableMatchPattern = regexp.MustCompile(`\{[^{}]+\}`)
+
+// replaceVariables takes a string content and a map containin set varibales with their values
+// the string that is returned has all occurences of a variable refrence replaced with the actual value that was set
+func replaceVariables(name string, variableMap map[string]string) string {
+	matches := variableMatchPattern.FindAllString(name, -1)
+	//check if there is at least a pattern match
+	if len(matches) <= 0 {
+		return name
+	}
+	//loop through collected variables set and replace any occurence
+	for k, v := range variableMap {
+		//construct regex pattern using our varibale key
+		pattern := fmt.Sprintf(`\{%s\}`, regexp.QuoteMeta(k))
+		// Compile the regular expression
+		regex := regexp.MustCompile(pattern)
+		name = regex.ReplaceAllString(name, v)
+	}
+	return name
+}
 
 /*
 Scaffold creates a directory structure based on the provided YAML file.
@@ -36,7 +59,7 @@ Note:
 
   - If any error occurs during the process, the function will log a fatal error message and exit the program.
 */
-func Scaffold(name string, yamlpath string) {
+func Scaffold(name string, yamlpath string, setVariables map[string]string) {
 	// Read and get YAML data
 	yamlData, err := os.ReadFile(yamlpath)
 	helper.Fatal(fmt.Sprintf("Failed to read YAML file: %s", err), true, err)
@@ -70,6 +93,8 @@ func Scaffold(name string, yamlpath string) {
 			err = os.MkdirAll(filepath.Dir(filePath), 0755)
 			helper.Fatal(fmt.Sprintf("Error creating directories for %s: %v", filePath, err), true, err)
 
+			//replace all variables with values set
+			content = replaceVariables(content, setVariables)
 			// Create the files at filePath path and add specified content
 			err = os.WriteFile(filePath, []byte(content), 0644)
 			helper.Fatal(fmt.Sprintf("Failed to create file %s: %s", fileName, err), true, err)
