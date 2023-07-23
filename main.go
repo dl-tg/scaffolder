@@ -7,47 +7,17 @@ import (
 	"runtime"
 	"scaffolder/helper"
 	"scaffolder/utils"
-	"strings"
 )
 
-type yamlVariableMap map[string]string
-
-func (y *yamlVariableMap) String() string {
-	output := []string{}
-
-	for k, v := range *y {
-		output = append(output, fmt.Sprintf("%s:%s", k, v))
-	}
-	return strings.Join(output, ",")
-
-}
-
-func (y *yamlVariableMap) Set(val string) error {
-	values := strings.Split(val, ",")
-	for _, v := range values {
-		setVariable := strings.Split(v, ":")
-		if len(setVariable) < 2 {
-			helper.Fatal("invalid format for varibale assignment", false)
-		}
-		key := setVariable[0]
-		valu := setVariable[1]
-		(*y)[key] = valu
-
-	}
-
-	return nil
-}
-
 func main() {
-
 	// Project name and YAML config filename
 	var name, yaml string
 	// Initialize Git?
 	var git bool
 	var remember bool
+
 	var yamlPath string
 	var configPath string
-	var yamlVariables yamlVariableMap = map[string]string{}
 
 	// Define and parse command-line flags
 	flag.StringVar(&name, "name", "", "Project name")
@@ -55,13 +25,11 @@ func main() {
 	flag.StringVar(&configPath, "configdir", "", "Path to custom config")
 	flag.BoolVar(&git, "git", false, "Use git in project")
 	flag.BoolVar(&remember, "remember", false, "Remember the config path")
-	flag.Var(&yamlVariables, "values", "key value pairs")
 	flag.Parse()
-	fmt.Println(*&yamlVariables)
 
 	// If the project name or path to the YAML file was not provided, print usage and exit with code 1
 	if name == "" || yaml == "" {
-		helper.Fatal("Usage: scaffold --name <projname> --yaml <configname> --configdir? <custom config path> --git? <boolean> --remember? <boolean> (without angle brackets, ? - optional) ", false)
+		helper.Fatal("Usage: scaffold --name <projname> --yaml <configname> --git? <boolean> --remember? <boolean> (without angle brackets, ? - optional) ", false)
 	}
 
 	// Initialize Git repository if 'git' flag is true (user agreed)
