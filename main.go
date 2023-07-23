@@ -57,7 +57,7 @@ func main() {
 	flag.BoolVar(&remember, "remember", false, "Remember the config path")
 	flag.Var(&yamlVariables, "values", "key value pairs")
 	flag.Parse()
-	fmt.Println(*&yamlVariables)
+	fmt.Println(yamlVariables["age"])
 
 	// If the project name or path to the YAML file was not provided, print usage and exit with code 1
 	if name == "" || yaml == "" {
@@ -110,5 +110,5 @@ func main() {
 		helper.Fatal(fmt.Sprintf("Could not save config path: %s", err), true, err)
 	}
 	// Scaffold the directory structure using the provided project name and YAML config path
-	utils.Scaffold(name, yamlPath)
+	utils.Scaffold(name, yamlPath,*&yamlVariables)
 }

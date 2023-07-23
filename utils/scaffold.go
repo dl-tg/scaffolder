@@ -4,10 +4,29 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"regexp"
 	"scaffolder/helper"
 
 	"gopkg.in/yaml.v3"
 )
+
+var variableMatchPattern = regexp.MustCompile(`\$\w+`)
+
+func replaceVariable(name string, variableMap map[string]string) string {
+	matches := variableMatchPattern.FindAllString(name, -1)
+	if len(matches) <= 0 {
+		return name
+	}
+
+	for k, v := range variableMap {
+		//construct regex pattern using our varibale key
+		pattern := fmt.Sprintf(`\$\b%s\b`, regexp.QuoteMeta(k))
+		// Compile the regular expression
+		regex := regexp.MustCompile(pattern)
+		name = regex.ReplaceAllString(name, v)
+	}
+	return name
+}
 
 /*
 Scaffold creates a directory structure based on the provided YAML file.
@@ -36,7 +55,7 @@ Note:
 
   - If any error occurs during the process, the function will log a fatal error message and exit the program.
 */
-func Scaffold(name string, yamlpath string) {
+func Scaffold(name string, yamlpath string, setVariables map[string]string) {
 	// Read and get YAML data
 	yamlData, err := os.ReadFile(yamlpath)
 	helper.Fatal(fmt.Sprintf("Failed to read YAML file: %s", err), true, err)
@@ -58,12 +77,16 @@ func Scaffold(name string, yamlpath string) {
 
 	// Scaffold the directory structure :: iterating over the map
 	for folder, files := range dirs {
+		//replace yaml variables if any
+		folder = replaceVariable(folder, setVariables)
 		// Create the folders and subdirectories if necessary
 		err = os.MkdirAll(folder, 0755)
 		helper.Fatal(fmt.Sprintf("Error creating folder %s: %v", folder, err), true, err)
 
 		// Create the files :: iterating over files from the map and getting specified content
 		for fileName, content := range files {
+			//replace yaml variables if any
+			fileName = replaceVariable(fileName, setVariables)
 			// Construct a file path for the file
 			filePath := filepath.Join(folder, fileName)
 			// Create the directories before creating the file
