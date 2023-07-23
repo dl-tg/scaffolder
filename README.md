@@ -47,11 +47,11 @@ Tip: | in YAML is for multiline text
 - [x] `--configdir` flag to let the user specify path to custom config folder. Fallback to default path if empty, also let user get the config from current working directory
 - [x] Remember custom config directory if specified AND `--remember` is true (by default false)
 - [x] Additional error handling for new features
-- [x] YAML variables that can be set using a flag. $MY_VAR: Test, a: {MY_VAR}. Parse and replace {MY_VAR} with the actual value.
+- [x] YAML variables that can be set using flags
 
 ## Install
 
-If you are not planning to contribue OR you don't need the very last releases:
+If you are not planning to contribute OR you don't need the very last releases:
 
 ### Linux / MacOS
 
@@ -162,13 +162,13 @@ $ go build
 # Arguments with ? are optional.
 $ scaffold --name <project name> --yaml <config name> --configdir? <path to custom folder if exists> --git? <true/false> --remember? <true/false>
 ```
-scaffolder 1.1.7:
+Scaffolder 1.1.7:
 
-- `--variables` - new flag introduced to allow you set yaml varibales which can be used when scaffolding your project
+- `--variables` - New flag introduced to allow you set yaml varibales which can be used when scaffolding your project
 
 Example:
 ```bash
-$ scaffold --name example --yaml "hello" --variables language:go,type:compiled
+$ scaffold --name example --yaml "hello" --variables language:go, type:compiled
 ```
 ```yaml
 hello:
@@ -180,7 +180,7 @@ hello:
   type := "{type}"
 
   func main(){
-   fmt.Println("%s is %s", name,type)
+   fmt.Printf("%s is %s", name,type)
   }
 ```
 Result
@@ -193,12 +193,12 @@ with hello.go having the content
 ```
   package main
 
-  import "fmt""
+  import "fmt"
 
   func main(){
     name := "go"
     type := "compiled"
-    fmt.Fprintf("%s is %s", name, type)
+    fmt.Printf("%s is %s", name, type)
   }
 ```
 
