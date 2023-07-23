@@ -28,7 +28,6 @@ func main() {
 	flag.BoolVar(&remember, "remember", false, "Remember the config path")
 	flag.Var(&yamlVariables, "variables", "set variables to be used as comma seperated key value pairs eg key:value,key2:value2 ")
 	flag.Parse()
-	fmt.Println(yamlVariables["age"])
 
 	// If the project name or path to the YAML file was not provided, print usage and exit with code 1
 	if name == "" || yaml == "" {
