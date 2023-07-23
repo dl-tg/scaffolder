@@ -137,6 +137,8 @@ Scaffolder 1.1.5:
 
 - Name of config folder: scaffolder-configs -> .scaffolder. It is a dotfile, meaning it's hidden by default, so you should either manipulate it using a terminal or toggle visiblity of hidden folders. Please rename the folder for compatiblity with this version
 
+as of 1.16.1, the .scaffolder dotfile should be in user's app config folder (usually `~/.config`)
+
 - `--configdir` - new flag using which you can specify path to your custom config folder. Example below, it looks for the yaml config inside path specified in configdir which is .custom_configs folder in home directory (Unix)
 
 ```bash
