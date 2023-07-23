@@ -172,7 +172,7 @@ $ scaffold --name example --yaml "hello" --variables language:go,type:compiled
 ```
 ```yaml
 hello:
-  main.go:|
+  main.go: |
   package main
   import fmt
 
