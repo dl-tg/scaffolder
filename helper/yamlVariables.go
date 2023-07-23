@@ -26,8 +26,8 @@ func (y *YamlVariableMap) Set(val string) error {
 			return fmt.Errorf("Invalid format for key-value pair: %s", v)
 		}
 		key := setVariable[0]
-		valu := setVariable[1]
-		(*y)[key] = valu
+		value := setVariable[1]
+		(*y)[key] = value
 
 	}
 
