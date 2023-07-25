@@ -27,13 +27,12 @@ Example Usage:
 	// Result: The error message will be displayed, but the program will not exit since 'err' is nil.
 */
 func Fatal(message string, checkErr bool, err ...error) {
-	if !checkErr {
+	if !checkErr || (checkErr && ErrorsExists(err...)) {
 		fmt.Println(message)
 		os.Exit(1)
-	} else {
-		if len(err) > 0 && err[0] != nil {
-			fmt.Println(message)
-			os.Exit(1)
-		}
 	}
+}
+
+func ErrorsExists(errors ...error) bool {
+	return len(errors) > 0 && errors[0] != nil
 }
