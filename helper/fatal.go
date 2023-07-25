@@ -27,7 +27,7 @@ Example Usage:
 	// Result: The error message will be displayed, but the program will not exit since 'err' is nil.
 */
 func Fatal(message string, checkErr bool, err ...error) {
-	if !checkErr || checkErr && ErrorsExists(err...) {
+	if !checkErr || (checkErr && ErrorsExists(err...)) {
 		fmt.Println(message)
 		os.Exit(1)
 	}
