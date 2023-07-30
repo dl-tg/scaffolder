@@ -348,4 +348,4 @@ If you want to contibute to Scaffolder but don't know how, refer to the official
 
 ## License
 
-This project is licensed under the Apache License, Version 2.0. See the [LICENSE](LICENSE) file for details.
+This project is licensed under MIT license. See the [LICENSE](LICENSE) file for details.
