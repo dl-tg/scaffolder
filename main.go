@@ -3,8 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
-	"os"
-	"runtime"
+	"path/filepath"
 	"scaffolder/helper"
 	"scaffolder/utils"
 )
@@ -15,9 +14,13 @@ func main() {
 	var name, yaml string
 	// Initialize Git?
 	var git bool
+	// Remember the path to custom config folder specified in configPath?
 	var remember bool
+	// Will be used to construct path to target YAML later
 	var yamlPath string
+	// Path to custom config folder
 	var configPath string
+	// Dictionary of custom variables
 	var yamlVariables helper.YamlVariableMap = map[string]string{}
 
 	// Define and parse command-line flags
@@ -31,7 +34,7 @@ func main() {
 
 	// If the project name or path to the YAML file was not provided, print usage and exit with code 1
 	if name == "" || yaml == "" {
-		helper.Fatal("Usage: scaffold --name <projname> --yaml <configname> --configdir? <custom config path> --variables? <set variables> --git? <boolean> --remember? <boolean> (without angle brackets, ? - optional) ", false)
+		flag.Usage()
 	}
 
 	// Initialize Git repository if 'git' flag is true (user agreed)
@@ -39,22 +42,14 @@ func main() {
 		helper.Git(name)
 	}
 
+	// Construct default paths for the YAML file based on the user's operating system
+	var defaultPath string = filepath.Join(helper.AppsDataPath(), "scaffolder", yaml+".yaml")
+
 	// Check and set the path to the YAML config file
 	if configPath == "" {
-		savedPath, err := helper.GetConfigDir()
-		helper.Fatal(fmt.Sprintf("Could not get config path: %s", err), true, err)
-
+		var savedPath string = helper.GetConfigDir()
 		if savedPath == "" {
-			// Construct default paths for the YAML file based on the user's operating system
-			var unixDefaultPath string = helper.UnixPath(yaml)
-			var winDefaultPath string = os.Getenv("USERPROFILE") + "\\.scaffolder\\" + yaml + ".yaml"
-			var defaultPathExists bool
-
-			if runtime.GOOS == "windows" {
-				defaultPathExists = helper.ValidateYamlPath(winDefaultPath, &yamlPath)
-			} else {
-				defaultPathExists = helper.ValidateYamlPath(unixDefaultPath, &yamlPath)
-			}
+			var defaultPathExists = helper.ValidateYamlPath(defaultPath, &yamlPath)
 
 			// If the default path does not exist, try the YAML file in the current directory
 			if !defaultPathExists {
@@ -70,15 +65,12 @@ func main() {
 		// If a custom config path was provided, validate and use it
 		if !helper.ValidateYamlPath(fmt.Sprintf("%s/%s.yaml", configPath, yaml), &yamlPath) {
 			configPath = ""
-			// Store the config path in the database
 		}
 	}
 
-	// Store the path in the database
 	if remember {
-		err := helper.SaveConfigDir(yamlPath)
-		helper.Fatal(fmt.Sprintf("Could not save config path: %s", err), true, err)
+		helper.SaveConfigDir(yamlPath)
 	}
 	// Scaffold the directory structure using the provided project name and YAML config path
-	utils.Scaffold(name, yamlPath, *&yamlVariables)
+	utils.Scaffold(name, yamlPath, yamlVariables)
 }

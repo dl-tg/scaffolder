@@ -20,13 +20,13 @@ func (y *YamlVariableMap) String() string {
 func (y *YamlVariableMap) Set(val string) error {
 	values := strings.Split(val, ",")
 	for _, v := range values {
-		setVariable := strings.Split(v, ":")
+		setVariable := strings.SplitN(v, ":", 2)
 		if len(setVariable) < 2 {
-			Fatal("Invalid format for varibale assignment", false)
-			return fmt.Errorf("Invalid format for key-value pair: %s", v)
+			Fatal("Invalid format for variable assignment", false)
+			return fmt.Errorf("invalid format for key-value pair: %s", v)
 		}
-		key := setVariable[0]
-		value := setVariable[1]
+		key := strings.TrimSpace(setVariable[0])
+		value := strings.TrimSpace(setVariable[1])
 		(*y)[key] = value
 
 	}

@@ -1,42 +1,41 @@
 package helper
 
 import (
+	"fmt"
 	"os"
 	"path/filepath"
-
-	"github.com/mitchellh/go-homedir"
 )
 
-// Save the configpath to a local file called configDir.txt in the user's home directory
-func SaveConfigDir(configPath string) error {
-	home, err := homedir.Dir()
-	if err != nil {
-		return err
-	}
-	f, err := os.Create(filepath.Join(home, "configDir.txt"))
-	if err != nil {
-		return err
-	}
-	defer f.Close()
-	_, err = f.WriteString(configPath)
-	if err != nil {
-		return err
-	}
-	return nil
+func getConfigDirPath() string {
+	var configDirPath string = filepath.Join(AppsDataPath(), "scaffolder")
+	return configDirPath
 }
 
-// Get the configpath from the local file called configDir.txt in the user's home directory
-func GetConfigDir() (string, error) {
-	home, err := homedir.Dir()
+func SaveConfigDir(configPath string) {
+	configDirPath := getConfigDirPath()
+
+	err := os.MkdirAll(configDirPath, 0755)
+	Fatal(fmt.Sprintf("Error: Failed to create scaffolder config folder: %s", err), true, err)
+
+	configFilePath := filepath.Join(configDirPath, "configDir.txt")
+	f, err := os.Create(configFilePath)
+	Fatal(fmt.Sprintf("Error: Failed to create configDir text file in scaffolder folder: %s", err), true, err)
+
+	defer f.Close()
+	_, err = f.WriteString(configPath)
+	Fatal(fmt.Sprintf("Error: Failed to write custom config path to configDir.txt: %s", err), true, err)
+}
+
+func GetConfigDir() string {
+	configFilePath := filepath.Join(getConfigDirPath(), "configDir.txt")
+	f, err := os.OpenFile(configFilePath, os.O_CREATE, 0666)
+
 	if err != nil {
-		return "", err
+		fmt.Printf("Error: Could not open configDir text file: %s", err)
 	}
-	f, err := os.OpenFile(filepath.Join(home, "configDir.txt"), os.O_CREATE, 0666)
-	if err != nil {
-		return "", err
-	}
+
 	defer f.Close()
 	buf := make([]byte, 1024)
 	n, _ := f.Read(buf)
-	return string(buf[:n]), nil
+	return string(buf[:n])
 }

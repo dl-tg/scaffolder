@@ -82,12 +82,14 @@ func Scaffold(name string, yamlpath string, setVariables map[string]string) {
 	// Scaffold the directory structure :: iterating over the map
 	for folder, files := range dirs {
 		// Create the folders and subdirectories if necessary
+		folder = replaceVariables(folder, setVariables)
 		err = os.MkdirAll(folder, 0755)
 		helper.Fatal(fmt.Sprintf("Error creating folder %s: %v", folder, err), true, err)
 
 		// Create the files :: iterating over files from the map and getting specified content
 		for fileName, content := range files {
 			// Construct a file path for the file
+			fileName = replaceVariables(fileName, setVariables)
 			filePath := filepath.Join(folder, fileName)
 			// Create the directories before creating the file
 			err = os.MkdirAll(filepath.Dir(filePath), 0755)

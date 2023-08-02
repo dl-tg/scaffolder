@@ -22,7 +22,7 @@ func ValidateYamlPath(path string, yamlpath *string) bool {
 			return false
 		} else {
 			// If any other error occurs, log a fatal error message and return false.
-			Fatal(fmt.Sprintf("Error occurred while checking absolute path (CheckPathOS): %s", err), true, err)
+			Fatal(fmt.Sprintf("Error occurred while checking absolute path: %s", err), true, err)
 			return false
 		}
 	}
