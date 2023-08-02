@@ -1,0 +1,5 @@
+"{pkg}":
+  "{module}.txt": |
+    hello {name}{test}
+    you live in {city}
+$a: a
