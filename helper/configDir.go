@@ -6,11 +6,13 @@ import (
 	"path/filepath"
 )
 
+// Get scaffolder default config path
 func getConfigDirPath() string {
 	var configDirPath string = filepath.Join(AppsDataPath(), "scaffolder")
 	return configDirPath
 }
 
+// SaveConfigDir creates the scaffolder config directory and saves the provided config path 
 func SaveConfigDir(configPath string) {
 	configDirPath := getConfigDirPath()
 
@@ -26,6 +28,7 @@ func SaveConfigDir(configPath string) {
 	Fatal(fmt.Sprintf("Error: Failed to write custom config path to configDir.txt: %s", err), true, err)
 }
 
+// GetConfigDir retrieves the saved config path from the scaffolder config directory
 func GetConfigDir() string {
 	configFilePath := filepath.Join(getConfigDirPath(), "configDir.txt")
 	f, err := os.OpenFile(configFilePath, os.O_CREATE, 0666)
