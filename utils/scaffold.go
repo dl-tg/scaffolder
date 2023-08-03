@@ -5,7 +5,7 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
-	"scaffolder/helper"
+	"github.com/dl-tg/scaffolder/helper"
 
 	"gopkg.in/yaml.v3"
 )
