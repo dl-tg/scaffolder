@@ -1,4 +1,4 @@
-module scaffolder
+module github.com/dl-tg/scaffolder
 
 go 1.20
 
