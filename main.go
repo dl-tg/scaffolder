@@ -4,8 +4,9 @@ import (
 	"flag"
 	"fmt"
 	"path/filepath"
-	"scaffolder/helper"
-	"scaffolder/utils"
+
+	"github.com/dl-tg/scaffolder/helper"
+	"github.com/dl-tg/scaffolder/utils"
 )
 
 func main() {
