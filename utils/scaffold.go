@@ -10,20 +10,20 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-// pattern to find all appearance of curly braces enclosed instances
+// Pattern to find all appearance of curly braces enclosed instances
 var variableMatchPattern = regexp.MustCompile(`\{[^{}]+\}`)
 
-// replaceVariables takes a string content and a map containin set varibales with their values
+// replaceVariables takes a string content and a map containing set variables with their values
 // the string that is returned has all occurences of a variable refrence replaced with the actual value that was set
 func replaceVariables(name string, variableMap map[string]string) string {
 	matches := variableMatchPattern.FindAllString(name, -1)
-	//check if there is at least a pattern match
+	// Check if there is at least a pattern match
 	if len(matches) <= 0 {
 		return name
 	}
-	//loop through collected variables set and replace any occurence
+	// Loop through collected variables set and replace any occurence
 	for k, v := range variableMap {
-		//construct regex pattern using our varibale key
+		// Construct regex pattern using our varibale key
 		pattern := fmt.Sprintf(`\{%s\}`, regexp.QuoteMeta(k))
 		// Compile the regular expression
 		regex := regexp.MustCompile(pattern)
