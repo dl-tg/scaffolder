@@ -33,6 +33,7 @@ func Fatal(message string, checkErr bool, err ...error) {
 	}
 }
 
+// Checks if error exists
 func ErrorsExists(errors ...error) bool {
 	return len(errors) > 0 && errors[0] != nil
 }
