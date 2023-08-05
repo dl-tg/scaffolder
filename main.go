@@ -2,8 +2,6 @@ package main
 
 import (
 	"flag"
-	"fmt"
-	"path/filepath"
 
 	"github.com/dl-tg/scaffolder/helper"
 	"github.com/dl-tg/scaffolder/utils"
@@ -43,31 +41,7 @@ func main() {
 		helper.Git(name)
 	}
 
-	// Construct default paths for the YAML file based on the user's operating system
-	var defaultPath string = filepath.Join(helper.AppsDataPath(), "scaffolder", yaml+".yaml")
-
-	// Check and set the path to the YAML config file
-	if configPath == "" {
-		var savedPath string = helper.GetConfigDir()
-		if savedPath == "" {
-			var defaultPathExists = helper.ValidateYamlPath(defaultPath, &yamlPath)
-
-			// If the default path does not exist, try the YAML file in the current directory
-			if !defaultPathExists {
-				if !helper.ValidateYamlPath(fmt.Sprintf("./%s.yaml", yaml), &yamlPath) {
-					helper.Fatal(fmt.Sprintf("Could not find %s.yaml", yaml), false)
-				}
-			}
-		} else {
-			yamlPath = savedPath
-		}
-
-	} else {
-		// If a custom config path was provided, validate and use it
-		if !helper.ValidateYamlPath(fmt.Sprintf("%s/%s.yaml", configPath, yaml), &yamlPath) {
-			configPath = ""
-		}
-	}
+	yamlPath = helper.GetYamlPath(configPath, yaml)
 
 	if remember {
 		helper.SaveConfigDir(yamlPath)
