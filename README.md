@@ -149,9 +149,10 @@ $ go build
 Use the following command to scaffold a project:
 
 ```bash
-$ scaffold --name <project_name> --yaml <config_name> --configdir? <path_to_custom_config_folder_if_exists> --git? <true/false> --remember? <true/false> --variables? <k:v>
+$ scaffold --name? <project_name> --yaml <config_name> --configdir? <path_to_custom_config_folder_if_exists> --git? <true/false> --remember? <true/false> --variables? <k:v>
 ```
 Note: remember flag specifies whether to remember custom path specified in configdir, avoiding the need to specify it each time
+On 1.1.9 version and above, name flag is optional now and if not specified, it will scaffold in current directory.
 
 ### YAML Config Syntax
 
