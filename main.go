@@ -32,7 +32,7 @@ func main() {
 	flag.Parse()
 
 	// If the project name or path to the YAML file was not provided, print usage and exit with code 1
-	if name == "" || yaml == "" {
+	if yaml == "" {
 		flag.Usage()
 	}
 
