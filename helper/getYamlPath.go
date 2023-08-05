@@ -10,7 +10,7 @@ func GetYamlPath(configPath string, yaml string) string {
 	var defaultPath string = filepath.Join(AppsDataPath(), "scaffolder", yaml+".yaml")
 	var savedPath string = GetConfigDir()
 	var customPath string = fmt.Sprintf("%s/%s.yaml", configPath, yaml)
-	var routePath string = fmt.Sprintf("./%s", yaml)
+	var routePath string = fmt.Sprintf("./%s.yaml", yaml)
 
 	// Set the path to the YAML file based on whether the user specified a custom config path or not. If not, a saved or a default file will be used
 	if configPath == "" {

@@ -5,6 +5,7 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
+
 	"github.com/dl-tg/scaffolder/helper"
 
 	"gopkg.in/yaml.v3"
@@ -71,13 +72,14 @@ func Scaffold(name string, yamlpath string, setVariables map[string]string) {
 	err = yaml.Unmarshal(yamlData, &dirs)
 	helper.Fatal(fmt.Sprintf("Error unmarshalling YAML: %s", err), true, err)
 
-	// Create project folder
-	err = os.Mkdir(name, 0755)
-	helper.Fatal(fmt.Sprintf("Error creating project folder: %s", err), true, err)
-
-	// Navigate to the project folder
-	err = os.Chdir(name)
-	helper.Fatal(fmt.Sprintf("Failed to navigate to project folder: %s", err), true, err)
+	// Create project folder if name was specified, else scaffold in current directoy
+	if name != "" {
+		err := os.Mkdir(name, 0755)
+		helper.Fatal(fmt.Sprintf("Error creating project folder: %s", err), true, err)
+		// Navigate to the project folder
+		err = os.Chdir(name)
+		helper.Fatal(fmt.Sprintf("Failed to navigate to project folder: %s", err), true, err)
+	}
 
 	// Scaffold the directory structure :: iterating over the map
 	for folder, files := range dirs {
