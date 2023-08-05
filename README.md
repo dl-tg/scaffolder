@@ -1,8 +1,10 @@
 # Scaffolder
 
 Scaffolder is a powerful command-line interface tool written in Golang designed to automate the tedious task of creating barebones for your projects. It allows you to define the necessary directory structure in a reusable config YAML file, making it easy for both humans and parsers to work with.
+
 ### TODO
 - [ ] Specify default variables in YAML like `$var: 1`
+      
 ## Features
 
   - Automate project scaffolding with a YAML config file
@@ -49,6 +51,7 @@ Hello World
 ```
 
 ## Installation
+
 ### Linux / MacOS
 
 1. Change your directory to the home directory:
@@ -120,6 +123,7 @@ Add the executable to the PATH in Windows:
   5. Click "New," then enter the full path to the "scaffolder" folder (e.g., C:\Users\YourUsername\scaffolder) and click "OK" to add it to the PATH
 
 Note: Make sure to replace YourUsername with your actual Windows username.
+
 ## Building from Source
 
 To build Scaffolder from source, ensure you have Golang installed:
@@ -148,6 +152,7 @@ Use the following command to scaffold a project:
 $ scaffold --name <project_name> --yaml <config_name> --configdir? <path_to_custom_config_folder_if_exists> --git? <true/false> --remember? <true/false> --variables? <k:v>
 ```
 Note: remember flag specifies whether to remember custom path specified in configdir, avoiding the need to specify it each time
+
 ### YAML Config Syntax
 
 To create a file inside the parent (project's) directory, use a "." collection:
@@ -224,6 +229,7 @@ As you can see, the {name} variable was replaced with "John" in the final projec
 As of 1.1.8, support for variables in folder or file names was added. Just wrap it in double quotes like `"{var}": ...` if using in folder/filenames.
 
 ## Contributing
+
 If you want to contribute but are unsure how, refer to the official GitHub guide on Contributing to projects.
 
 ## License
