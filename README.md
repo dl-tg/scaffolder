@@ -8,9 +8,7 @@ Scaffolder is a powerful command-line interface tool written in Golang designed 
 ## Features
 
   - Automate project scaffolding with a YAML config file
-  - Reusable templates for various programming languages available in the Scaffold configs repository
   - Supports creating folders and files with custom content using simple YAML syntax
-  - Easily initialize a Git repository with the --git flag
   - Define and use variables in the YAML file for flexible project generation
   - Remembers custom config directories using the --remember flag for added convenience
 
@@ -72,9 +70,9 @@ $ cd scaffolder
 ```bash
 
 # Linux:
-$ wget -q -O scaffold https://github.com/cemister/scaffolder/releases/download/stable-v1_1_8/scaffolder_linux
+$ wget -q -O scaffold https://github.com/cemister/scaffolder/releases/download/v1.1.9/scaffolder_linux
 # MacOS:
-$ curl -s -o scaffold https://github.com/cemister/scaffolder/releases/download/stable-v1_1_8/scaffolder_macos
+$ curl -s -o scaffold https://github.com/cemister/scaffolder/releases/download/v1.1.9/scaffolder_macos
 ```
 4. Make the file executable:
 
@@ -108,11 +106,11 @@ cd $env:userprofile
 mkdir scaffolder
 cd scaffolder
 ```
-3. Download the latest Scaffolder Windows release (replace stable-v1_1_8 with the tag of the latest version if not updated):
+3. Download the latest Scaffolder Windows release:
 
 ```bash
 
-curl -s -o scaffold.exe https://github.com/cemister/scaffolder/releases/download/stable-v1_1_8/scaffolder_win.exe
+curl -s -o scaffold.exe https://github.com/cemister/scaffolder/releases/download/v1.1.9/scaffolder_win.exe
 ```
 Add the executable to the PATH in Windows:
 
