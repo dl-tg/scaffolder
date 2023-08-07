@@ -128,7 +128,7 @@ To build Scaffolder from source, ensure you have Golang installed:
 
 1. Clone the repository (Git should be installed):
 ```bash
-$ git clone https://github.com/cemister/scaffolder.git
+$ git clone https://github.com/dl-tg/scaffolder.git
 ```
 
 2. Navigate to the project directory:
