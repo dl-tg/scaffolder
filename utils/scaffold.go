@@ -94,13 +94,13 @@ func scaffoldDirs(basePath string, dirs map[string]interface{}, setVariables map
 		case string: // If it's a file, create the file
 			createFile(basePath, name, v, setVariables)
 		case map[string]interface{}: // If it's a directory, recursively call scaffoldDirs
-			newPath := createDirectory(basePath, name, v, setVariables)
+			newPath := createDirectory(basePath, name)
 			scaffoldDirs(newPath, v, setVariables)
 		default:
 			if strings.Contains(name, ".") {
 				createFile(basePath, name, "", setVariables)
 			} else {
-				createDirectory(basePath, name, nil, setVariables)
+				createDirectory(basePath, name)
 			}
 		}
 	}
@@ -113,7 +113,7 @@ func createFile(basePath, name, content string, setVariables map[string]string) 
 	helper.Fatal(fmt.Sprintf("Failed to create file %s: %s", filePath, err), true, err)
 }
 
-func createDirectory(basePath, name string, content map[string]interface{}, setVariables map[string]string) string {
+func createDirectory(basePath, name string) string {
 	newPath := filepath.Join(basePath, name)
 	err := os.Mkdir(newPath, 0755)
 	helper.Fatal(fmt.Sprintf("Error creating folder %s: %v", newPath, err), true, err)
