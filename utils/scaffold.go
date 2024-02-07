@@ -5,6 +5,7 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
+	"strings"
 
 	"github.com/dl-tg/scaffolder/helper"
 
@@ -66,7 +67,7 @@ func Scaffold(name string, yamlpath string, setVariables map[string]string) {
 	helper.Fatal(fmt.Sprintf("Failed to read YAML file: %s", err), true, err)
 
 	// Create map for the directory structure
-	var dirs map[string]map[string]string
+	var dirs map[string]interface{}
 
 	// Unmarshal the YAML into our map
 	err = yaml.Unmarshal(yamlData, &dirs)
@@ -82,26 +83,40 @@ func Scaffold(name string, yamlpath string, setVariables map[string]string) {
 	}
 
 	// Scaffold the directory structure :: iterating over the map
-	for folder, files := range dirs {
-		// Create the folders and subdirectories if necessary
-		folder = replaceVariables(folder, setVariables)
-		err = os.MkdirAll(folder, 0755)
-		helper.Fatal(fmt.Sprintf("Error creating folder %s: %v", folder, err), true, err)
+	scaffoldDirs(".", dirs, setVariables)
+}
 
-		// Create the files :: iterating over files from the map and getting specified content
-		for fileName, content := range files {
-			// Construct a file path for the file
-			fileName = replaceVariables(fileName, setVariables)
-			filePath := filepath.Join(folder, fileName)
-			// Create the directories before creating the file
-			err = os.MkdirAll(filepath.Dir(filePath), 0755)
-			helper.Fatal(fmt.Sprintf("Error creating directories for %s: %v", filePath, err), true, err)
-
-			//replace all variables with values set
-			content = replaceVariables(content, setVariables)
-			// Create the files at filePath path and add specified content
-			err = os.WriteFile(filePath, []byte(content), 0644)
-			helper.Fatal(fmt.Sprintf("Failed to create file %s: %s", fileName, err), true, err)
+func scaffoldDirs(basePath string, dirs map[string]interface{}, setVariables map[string]string) {
+	for name, item := range dirs {
+		// Apply variable replacement to the name
+		name = replaceVariables(name, setVariables)
+		switch v := item.(type) {
+		case string: // If it's a file, create the file
+			createFile(basePath, name, v, setVariables)
+		case map[string]interface{}: // If it's a directory, recursively call scaffoldDirs
+			createDirectory(basePath, name, v, setVariables)
+		default:
+			if strings.Contains(name, ".") {
+				createFile(basePath, name, "", setVariables)
+			} else {
+				createDirectory(basePath, name, nil, setVariables)
+			}
 		}
+	}
+}
+
+func createFile(basePath, name, content string, setVariables map[string]string) {
+	filePath := filepath.Join(basePath, name)
+	content = replaceVariables(content, setVariables)
+	err := os.WriteFile(filePath, []byte(content), 0644)
+	helper.Fatal(fmt.Sprintf("Failed to create file %s: %s", filePath, err), true, err)
+}
+
+func createDirectory(basePath, name string, content map[string]interface{}, setVariables map[string]string) {
+	newPath := filepath.Join(basePath, name)
+	err := os.Mkdir(newPath, 0755)
+	helper.Fatal(fmt.Sprintf("Error creating folder %s: %v", newPath, err), true, err)
+	if content != nil {
+		scaffoldDirs(newPath, content, setVariables)
 	}
 }
